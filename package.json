@@ -1,0 +1,15 @@
+{
+  "name": "deliverallserver",
+  "version": "1.0.1",
+  "description": "Server for DeliverAll",
+  "main": "example.js",
+  "dependencies": {
+    "httpdispatcher": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
