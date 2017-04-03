@@ -4,7 +4,8 @@
   "description": "Server for DeliverAll",
   "main": "example.js",
   "dependencies": {
-    "httpdispatcher": "^2.1.0"
+    "httpdispatcher": "^2.1.0",
+    "mongodb": "^2.2.25"
   },
   "devDependencies": {},
   "scripts": {
