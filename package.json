@@ -1,17 +1,29 @@
 {
-  "name": "deliverallserver",
-  "version": "1.0.1",
+  "name": "deliverall",
+  "version": "1.0.2",
   "description": "Server for DeliverAll",
   "main": "example.js",
   "dependencies": {
+    "express": "^4.15.2",
     "httpdispatcher": "^2.1.0",
     "mongodb": "^2.2.25"
   },
   "devDependencies": {},
   "scripts": {
-	"start": "node example.js",
+    "start": "node example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "phuc",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tphuc112358/DeliverAllServer.git"
+  },
+  "keywords": [
+    "Nc2kld2fs2f"
+  ],
+  "bugs": {
+    "url": "https://github.com/tphuc112358/DeliverAllServer/issues"
+  },
+  "homepage": "https://github.com/tphuc112358/DeliverAllServer#readme"
 }

@@ -1,18 +1,39 @@
-var http = require('http');
+var express = require('express')
+var app = express()
+var fs = require("fs");
 
-//Lets define a port we want to listen to
-var PORT = process.env.PORT || 8080;
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-    response.end('It Works!! Path Hit: ' + request.url);
-}
+//support parsing of application/json type post data
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//Create a server
-var server = http.createServer(handleRequest);
+//register
+var register = require("./api/register.js");
+app.use('/', register);
 
-//Lets start our server
-server.listen(PORT, function(){
-    //Callback triggered when server is successfully listening. Hurray!
-    console.log("Server listening on: http://localhost:%s", PORT);
-});
+//login
+var login = require("./api/login.js");
+app.use('/', login);
 
+
+//listUser
+app.get('/listUser', function (req,res) {
+  fs.readFile( __dirname + "/" + "user.json", 'utf8', function (err, data) {
+    users = JSON.parse(data);
+    var user = users["user" + req.params.id]
+    console.log( user );
+    res.end( JSON.stringify(user) );
+  });
+})
+
+//port
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+
+//database
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('mydb.db');
+var check;
+
+db.close();
