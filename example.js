@@ -21,8 +21,8 @@ app.use('/', register);
 var login = require("./api/login.js");
 app.use('/', login);
 
-var deli_request = require("./api/request.js");
-app.use('/',deli_request);
+//var deli_request = require("./api/request.js");
+//app.use('/',deli_request);
 
 
 //listUser

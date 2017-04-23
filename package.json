@@ -3,6 +3,9 @@
   "version": "1.0.2",
   "description": "Server for DeliverAll",
   "main": "example.js",
+  "engines": {
+    "node": "6.10.2"
+  },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
