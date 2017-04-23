@@ -7,6 +7,13 @@ var fs = require("fs");
 //var db = new sqlite3.Database('NorDb.db');
 var check;
 
+//allow origin header
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 //support parsing of application/json type post data
 var bodyParser = require('body-parser');
@@ -28,15 +35,6 @@ app.use('/',deli_request);
 //request by name
 var request_by_name= require("./api/request_by_name.js");
 app.use('/',request_by_name);
-
-
-//allow origin header
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 
 //listUser
 app.get('/listUser', function (req,res) {

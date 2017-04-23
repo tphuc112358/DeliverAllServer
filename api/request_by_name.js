@@ -32,19 +32,15 @@ module.exports = (function() {
 			res.json({result:false,missing:ret});			
 		}
 
-		var col_db="";
-		var val_db="";
-		b.forEach(function(token) {
-			col_db+=token+",";
-			val_db+=req.body[token]+"\",\"";
-		});
+		db.all("SELECT * FROM Request WHERE username=\""+req.body["username"]+ "\""
+			,function(err,rows){
+				if (rows.length>0) {
+					res.json({result:true,list:rows})
+				} else {
+					res.json({result:true,list:[]});
+				}
+			});
 
-		col_db = col_db.slice(0,-1);
-		val_db = val_db.slice(0,-3);
-
-		//add into db
-		db.run("INSERT into Request (" +col_db +") VALUES (\""+val_db+"\")");
-		res.json({result:"succesful"});
 	});
 
 	router.post('/api/rest/request/:username', function(req,res) {
