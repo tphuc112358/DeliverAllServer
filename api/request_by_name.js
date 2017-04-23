@@ -4,7 +4,7 @@ var db = new sqlite3.Database('NorDb.db');
 module.exports = (function() {
 	'use strict';
 	var router = require('express').Router();
-	var b=["username"];
+	var b=["creator_user"];
 
 	var validate_request_param_auth = function(request_body)
 	{
@@ -32,7 +32,7 @@ module.exports = (function() {
 			res.json({result:false,missing:ret});			
 		}
 
-		db.all("SELECT * FROM Request WHERE username=\""+req.body["username"]+ "\""
+		db.all("SELECT * FROM Request WHERE creator_user=\""+req.body["creator_user"]+ "\""
 			,function(err,rows){
 				if (rows.length>0) {
 					res.json({result:true,list:rows})
