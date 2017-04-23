@@ -21,8 +21,16 @@ app.use('/', register);
 var login = require("./api/login.js");
 app.use('/', login);
 
-//var deli_request = require("./api/request.js");
-//app.use('/',deli_request);
+//request
+var deli_request = require("./api/request.js");
+app.use('/',deli_request);
+
+//allow origin header
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 //listUser

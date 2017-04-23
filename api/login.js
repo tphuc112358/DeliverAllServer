@@ -39,7 +39,8 @@ module.exports = (function() {
 			,function(err,rows){
 				if (rows.length>0) {
 					if (req.body["password"] == rows[0]["password"]) {
-						res.json({result:true});
+						rows[0]["password"]=undefined;
+						res.json(rows[0]);
 					} else {
 						res.json({result:false});
 					}

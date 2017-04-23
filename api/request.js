@@ -6,7 +6,25 @@ module.exports = (function() {
 	var router = require('express').Router();
 	var b=["title","description","address","deli_address","deli_time","payment"];
 
-	router.post('/api/rest/login', function (req,res) {
+	var validate_request_param_auth = function(request_body)
+	{
+		var ret = [];
+		if(request_body == undefined)
+		{
+ 			return false;
+		}
+		
+		b.forEach(function(token) {
+			if(request_body[token] == undefined || request_body[token] == "")
+			{
+				ret.push(token);
+			}
+		});
+		
+		return ret;
+	};
+
+	router.post('/api/rest/request', function (req,res) {
 		var ret = (validate_request_param_auth(req.body));
 
 		if(ret.length > 0)
@@ -25,9 +43,9 @@ module.exports = (function() {
 		val_db = val_db.slice(0,-3);
 
 		//add into db
-		db.run("INSERT into User (" +col_db +") VALUES (\""+val_db+"\")");
+		db.run("INSERT into Request (" +col_db +") VALUES (\""+val_db+"\")");
 		res.json({result:"succesful"});
 	});
 
 	return router;
-}();
+})();
