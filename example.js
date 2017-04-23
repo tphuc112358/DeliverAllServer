@@ -20,13 +20,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//register
-var register = require("./api/register.js");
-app.use('/', register);
-
-//login
-var login = require("./api/login.js");
-app.use('/', login);
+//user
+var user = require("./api/user.js");
+app.use('/', user);
 
 //request
 var deli_request = require("./api/request.js");
