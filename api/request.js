@@ -4,7 +4,7 @@ var db = new sqlite3.Database('NorDb.db');
 module.exports = (function() {
 	'use strict';
 	var router = require('express').Router();
-	var b=["title","description","address","deli_address","deli_time","payment","username";
+	var b=["title","description","address","deli_address","deli_time","payment","username"];
 
 	var validate_request_param_auth = function(request_body)
 	{
