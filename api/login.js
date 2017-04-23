@@ -1,3 +1,6 @@
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('NorDb.db');
+
 module.exports = (function() {
 	'use strict';
 	var router = require('express').Router();
@@ -32,14 +35,19 @@ module.exports = (function() {
 			res.json({result:false,missing:ret});		
 		}
 
-  		//Handle login
-  		if (req.body["username"]=="phong" &&
-  			req.body["password"]=="phong") {
-  			res.json({result:'ok'});
-  			
-  		}
+		db.all("SELECT * FROM User WHERE username=\""+req.body["username"]+ "\""
+			,function(err,rows){
+				if (rows.length>0) {
+					if (req.body["password"] == rows[0]["password"]) {
+						res.json({result:true});
+					} else {
+						res.json({result:false});
+					}
 
-  		res.json("ok");
+				} else {
+					res.json({result:false,status:"not existed username"});	
+				}
+			});
 
 	});
 

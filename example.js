@@ -2,6 +2,12 @@ var express = require('express')
 var app = express()
 var fs = require("fs");
 
+//database
+//var sqlite3 = require('sqlite3').verbose();
+//var db = new sqlite3.Database('NorDb.db');
+var check;
+
+
 //support parsing of application/json type post data
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -31,9 +37,3 @@ app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
 
-//database
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('mydb.db');
-var check;
-
-db.close();
