@@ -25,6 +25,11 @@ app.use('/', login);
 var deli_request = require("./api/request.js");
 app.use('/',deli_request);
 
+//request by name
+var request_by_name= require("./api/request_by_name.js");
+app.use('/',request_by_name);
+
+
 //allow origin header
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

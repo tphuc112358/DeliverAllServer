@@ -4,7 +4,7 @@ var db = new sqlite3.Database('NorDb.db');
 module.exports = (function() {
 	'use strict';
 	var router = require('express').Router();
-	var b=["title","description","address","deli_address","deli_time","payment","username";
+	var b=["username"];
 
 	var validate_request_param_auth = function(request_body)
 	{
@@ -24,7 +24,7 @@ module.exports = (function() {
 		return ret;
 	};
 
-	router.post('/api/rest/request', function (req,res) {
+	router.post('/api/rest/request_by_name', function (req,res) {
 		var ret = (validate_request_param_auth(req.body));
 
 		if(ret.length > 0)
@@ -48,7 +48,7 @@ module.exports = (function() {
 	});
 
 	router.post('/api/rest/request/:username', function(req,res) {
-
+		
 	});
 
 	return router;

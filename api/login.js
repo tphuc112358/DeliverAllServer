@@ -40,7 +40,7 @@ module.exports = (function() {
 				if (rows.length>0) {
 					if (req.body["password"] == rows[0]["password"]) {
 						rows[0]["password"]=undefined;
-						res.json(rows[0]);
+						res.json({result:true,user:rows[0]});
 					} else {
 						res.json({result:false});
 					}
