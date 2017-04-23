@@ -1,4 +1,4 @@
-/*var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('NorDb.db');
 
 module.exports = (function() {
@@ -30,4 +30,4 @@ module.exports = (function() {
 	});
 
 	return router;
-}();*/
+}();

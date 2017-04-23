@@ -51,7 +51,11 @@ module.exports = (function() {
 
 					//add into db
 					db.run("INSERT into User (" +col_db +") VALUES (\""+val_db+"\")");
-					res.json({result:"succesful"});
+					db.all("SELECT * FROM User WHERE username=\""+req.body["username"]+ "\""
+						,function(err,rows){
+							rows[0]["password"]= undefined;
+							res.json(rows[0]);
+						})
 				}
 			}); 
 	});
