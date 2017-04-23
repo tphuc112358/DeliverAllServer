@@ -24,11 +24,10 @@ module.exports = (function() {
 		return ret;
 	};
 
-	router.post('/api/rest/request_by_name', function (req,res) {
+	router.put('/api/rest/request_by_name', function (req,res) {
 		var ret = (validate_request_param_auth(req.body));
 
-		if(ret.length > 0)
-		{
+		if(ret.length > 0) {
 			res.json({result:false,missing:ret});			
 		}
 
@@ -43,9 +42,7 @@ module.exports = (function() {
 
 	});
 
-	router.post('/api/rest/request/:username', function(req,res) {
-		
-	});
+	
 
 	return router;
 })();

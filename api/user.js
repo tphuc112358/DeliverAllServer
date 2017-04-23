@@ -4,18 +4,18 @@ var db = new sqlite3.Database('NorDb.db');
 module.exports = (function() {
 	'use strict';
 	var router = require('express').Router();
-	var collumn_login=["username","password"];
-	var collumn_register=["username","password","email","phone"];
+	var column_login=["username","password"];
+	var column_register=["username","password","email","phone"];
 
 	//check input
-	var validate_request_param_auth = function(request_body,db_collumn)
+	var validate_request_param_auth = function(request_body,db_column)
 	{
 		var ret = [];
 		if(request_body == undefined) {
 			return false;
 		}
 		
-		db_collumn.forEach(function(token) {
+		db_column.forEach(function(token) {
 			if(request_body[token] == undefined || request_body[token] == "") {
 				ret.push(token);
 			}
@@ -25,9 +25,8 @@ module.exports = (function() {
 
 	//login
 	router.post('/api/rest/user/login', function (req,res) {
-		console.log(req.body);
 
-		var ret = (validate_request_param_auth(req.body,collumn_login));
+		var ret = (validate_request_param_auth(req.body,column_login));
 
 		if(ret.length > 0) {
 			//res.end('missing request params');
@@ -54,7 +53,7 @@ module.exports = (function() {
 	//register
 	router.post('/api/rest/user/register', function (req,res) {
 
-		var ret = (validate_request_param_auth(req.body,collumn_register));
+		var ret = (validate_request_param_auth(req.body,column_register));
 
 		if(ret.length > 0)
 		{
@@ -69,7 +68,7 @@ module.exports = (function() {
 				} else {
 					var col_db="";
 					var val_db="";
-					collumn_register.forEach(function(token) {
+					column_register.forEach(function(token) {
 						col_db+=token+",";
 						val_db+=req.body[token]+"\",\"";
 					});
