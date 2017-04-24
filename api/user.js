@@ -35,6 +35,8 @@ module.exports = (function() {
 
 		db.all("SELECT * FROM User WHERE username=\""+req.body["username"]+ "\""
 			,function(err,rows){
+				console.log(err);
+				console.log(rows);
 				if (rows.length>0) {
 					if (req.body["password"] == rows[0]["password"]) {
 						rows[0]["password"]=undefined;
