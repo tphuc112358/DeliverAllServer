@@ -6,6 +6,8 @@ module.exports = (function() {
 	var router = require('express').Router();
 	var column_login=["username","password"];
 	var column_register=["username","password","email","phone"];
+	var column_profile=["id","username","password","email","phone","transport","address","rating","free_status"];
+	var column_profile_edit=["username","password","email","phone","transport","address","rating","free_status"];
 
 	//check input
 	var validate_request_param_auth = function(request_body,db_column)
@@ -35,8 +37,6 @@ module.exports = (function() {
 
 		db.all("SELECT * FROM User WHERE username=\""+req.body["username"]+ "\""
 			,function(err,rows){
-				console.log(err);
-				console.log(rows);
 				if (rows.length>0) {
 					if (req.body["password"] == rows[0]["password"]) {
 						rows[0]["password"]=undefined;
@@ -57,8 +57,7 @@ module.exports = (function() {
 
 		var ret = (validate_request_param_auth(req.body,column_register));
 
-		if(ret.length > 0)
-		{
+		if(ret.length > 0) {
 			res.json({result:false,missing:ret});			
 		}
 		
@@ -88,6 +87,35 @@ module.exports = (function() {
 				}
 			}); 
 	});
+
+	//profile
+	router.post('/api/rest/user/profile/', function (req,res) {
+		var ret = (validate_request_param_auth(req.body,column_profile));
+
+		if(ret.length > 0) {
+			res.json({result:false,missing:ret});			
+		}
+
+		db.all("SELECT * FROM User WHERE id="+req.body["id"]
+			,function(err,rows){
+				//check if already been regsistered
+				if (rows.length>0) {
+					var result = "";
+					
+					column_profile_edit.forEach(function(token) {
+						result += token+"=\""+req.body[token]+"\",";
+					});
+					result = result.slice(0,-1);
+					//console.log("UPDATE User SET "+result+"  WHERE id="+req.body["id"]);
+					db.run("UPDATE User SET "+result+"  WHERE id="+req.body["id"]);
+					res.json({result:true,list:req.body});
+				}
+				else {
+					res.json({result:false,status:"not existed username"});
+				}
+			});
+	});
+
 
 	return router;
 })();

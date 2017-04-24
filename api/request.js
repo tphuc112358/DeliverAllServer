@@ -177,8 +177,6 @@ module.exports = (function() {
 		if(ret.length > 0) {
 			res.json({result:false,missing:ret});			
 		}
-
-		//console.log("SELECT * FROM Request WHERE request_id="+req.body["request_id"]+" AND courier_user=\""+req.body["courier_user"]+"\"");
 		
 		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]+" AND courier_user=\""+req.body["courier_user"]+"\""
 			,function(err,rows){
