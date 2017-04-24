@@ -8,6 +8,7 @@ module.exports = (function() {
 	var column_edit=["request_id","title","description","address","deli_address","deli_time","payment","creator_user"];
 	var column_apply=["request_id","courier_user"];
 	var column_delete=["request_id","creator_user"];
+	var column_getrequest = ["request_id"];
 	//validate input
 	var validate_request_param_auth = function(request_body,db_collumn)
 	{
@@ -71,9 +72,7 @@ module.exports = (function() {
 				} else {
 					res.json({result:false,message:"invalid request_id"});
 				}
-			});
-
-		
+			});		
 	});
 
 	//get request for username
@@ -102,8 +101,6 @@ module.exports = (function() {
 		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]
 			,function(err,rows){
 				if (rows.length>0) {
-					console.log(rows.length);
-					console.log(rows);
 					db.run("UPDATE Request SET courier_user =\""+req.body["courier_user"]+"\"WHERE request_id ="+req.body["request_id"],{},function(){
 						res.json({result:true,request:rows});
 					});
@@ -157,6 +154,23 @@ module.exports = (function() {
 			});
 	});
 
+	//get my delivery request
+	router.get('/api/rest/request/incoming/:courier_user', function (req,res) {
+		if (req.params["courier_user"]==undefined) {
+			req.json({result:false,missing:ret});	
+		}
+
+		db.all("SELECT * FROM Request WHERE courier_user=\""+req.params["courier_user"]+"\""
+			,function(err,rows){
+				if (rows.length>0) {
+					res.json({result:true,list:rows})
+				} else {
+					res.json({result:true,list:[]});
+				}
+			});
+			
+	});
 
 	return router;
+
 })();
