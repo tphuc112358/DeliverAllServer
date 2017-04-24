@@ -44,7 +44,7 @@ module.exports = (function() {
 
 		//add into db
 		db.run("INSERT into Request (" +col_db +") VALUES (\""+val_db+"\")");
-		res.json({result:"succesful",list:req.body});
+		res.json({result:true,list:req.body});
 	});
 
 	//edit new request
@@ -67,7 +67,7 @@ module.exports = (function() {
 
 					db.run("UPDATE Request SET "+result+"  WHERE request_id="+req.body["request_id"]);
 
-					res.json({result:"succesful",list:req.body});
+					res.json({result:true,list:req.body});
 				} else {
 					res.json({result:false,message:"invalid request_id"});
 				}
