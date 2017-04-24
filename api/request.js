@@ -168,7 +168,28 @@ module.exports = (function() {
 					res.json({result:true,list:[]});
 				}
 			});
-			
+	});
+
+	//reject service already taken
+	router.post('/api/rest/request/reject', function (req,res) {
+		var ret = (validate_request_param_auth(req.body,column_apply));
+
+		if(ret.length > 0) {
+			res.json({result:false,missing:ret});			
+		}
+
+		//console.log("SELECT * FROM Request WHERE request_id="+req.body["request_id"]+" AND courier_user=\""+req.body["courier_user"]+"\"");
+		
+		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]+" AND courier_user=\""+req.body["courier_user"]+"\""
+			,function(err,rows){
+				if (rows.length>0  ) {
+					db.run("UPDATE Request SET courier_user = NULL WHERE request_id = "+req.body["request_id"],{},function(){
+						res.json({result:true,request:rows});
+					});
+				} else {
+					res.json({result:false,message:"invalid request_id or courier_user"});
+				}
+			});			
 	});
 
 	return router;
