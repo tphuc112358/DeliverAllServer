@@ -98,12 +98,12 @@ module.exports = (function() {
 
 		if(ret.length > 0) {
 			res.json({result:false,missing:ret});			
-		}
-		console.log(req.body);
+		}h
 		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]
 			,function(err,rows){
 				if (rows.length>0) {
 					console.log(rows.length);
+					console.log(rows);
 					db.run("UPDATE Request SET courier_user =\""+req.body["courier_user"]+"\"WHERE request_id ="+req.body["request_id"]);
 					res.json({result:true,request:rows});
 				} else {
