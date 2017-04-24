@@ -104,7 +104,7 @@ module.exports = (function() {
 			,function(err,rows){
 				if (rows.length>0) {
 					db.run("UPDATE Request SET courier_user =\""+req.body["courier_user"]+"\"WHERE request_id ="+req.body["request_id"]);
-					result.json({result:true,request:rows});
+					res.json({result:true,request:rows});
 				} else {
 					res.json({result:false,message:"invalid request_id"});
 				}
