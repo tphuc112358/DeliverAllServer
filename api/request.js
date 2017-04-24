@@ -25,7 +25,7 @@ module.exports = (function() {
 	};
 
 	//create new request
-	router.put('/api/rest/request/create', function (req,res) {
+	router.post('/api/rest/request/create', function (req,res) {
 		var ret = (validate_request_param_auth(req.body,column_request));
 
 		if(ret.length > 0) {
@@ -48,7 +48,7 @@ module.exports = (function() {
 	});
 
 	//edit new request
-	router.post('/api/rest/request/create', function (req,res) {
+	router.post('/api/rest/request/edit', function (req,res) {
 		var ret = (validate_request_param_auth(req.body,column_edit));
 
 		if(ret.length > 0) {
@@ -127,7 +127,6 @@ module.exports = (function() {
 				} else {
 					res.json({result:false,status:"invalid user"});	
 				}
-
 			});
 	});
 
