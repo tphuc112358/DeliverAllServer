@@ -98,7 +98,7 @@ module.exports = (function() {
 
 		if(ret.length > 0) {
 			res.json({result:false,missing:ret});			
-		}h
+		}
 		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]
 			,function(err,rows){
 				if (rows.length>0) {
