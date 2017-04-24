@@ -104,10 +104,34 @@ module.exports = (function() {
 			,function(err,rows){
 				if (rows.length>0) {
 					db.run("UPDATE Request SET courier_user =\""+req.body["courier_user"]+"\"WHERE request_id ="+req.body["request_id"]);
+					result.json({result:true,request:rows});
 				} else {
 					res.json({result:false,message:"invalid request_id"});
 				}
 			});
+	});
+
+	//open free delivery message for applying
+	router.get('/api/rest/request/open/:creator_user', function (req,res) {
+		if (req.params["creator_user"]==undefined) {
+			req.json({result:false,missing:ret});	
+		}
+
+		db.all("SELECT * FROM Request WHERE creator_user!=\""+req.params["creator_user"]+ "\" AND courier_user is NULL"
+			,function(err,rows){
+				if (rows.length>0) {
+					res.json({result:true,list:rows})
+				} else {
+					res.json({result:true,list:[]});
+				}
+			});
+	});
+
+	//get all the request
+	router.post('/api/rest/request/all', function(req,res){
+		db.all("SELECT * FROM Request", function(err,rows){
+			res.json({result:true,list:rows});
+		})
 	});
 
 	//delete delivery
