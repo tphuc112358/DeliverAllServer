@@ -103,6 +103,7 @@ module.exports = (function() {
 		db.all("SELECT * FROM Request WHERE request_id="+req.body["request_id"]
 			,function(err,rows){
 				if (rows.length>0) {
+					console.log(rows.length);
 					db.run("UPDATE Request SET courier_user =\""+req.body["courier_user"]+"\"WHERE request_id ="+req.body["request_id"]);
 					res.json({result:true,request:rows});
 				} else {
